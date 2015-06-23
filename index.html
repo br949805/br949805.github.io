@@ -1,28 +1,219 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Hank Quinlan, Horrible Cop</title>
-	</head>
-	<body>
-		<nav>
-    		<ul>
-        		<li><a href="/">Home</a></li>
-	        	<li><a href="/about">About</a></li>
-        		<li><a href="/cv">CV</a></li>
-        		<li><a href="/blog">Blog</a></li>
-    		</ul>
-		</nav>
-		<div class="container">
-    		<div class="blurb">
-        		<h1>Hi there, I'm Hank Quinlan!</h1>
-				<p>I'm best known as the horrible cop from <em>A Touch of Evil</em> Don't trust me. <a href="/about">Read more about my life...</a></p>
-    		</div><!-- /.blurb -->
-		</div><!-- /.container -->
-		<footer>
-    		<ul>
-        		<li><a href="mailto:hankquinlanhub@gmail.com">email</a></li>
-        		<li><a href="https://github.com/hankquinlan">github.com/hankquinlan</a></li>
-			</ul>
-		</footer>
-	</body>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    
+</head>
+
+<body>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <!-- I recommend you host this file on your own, since this will change without warning -->
+  <script src="http://datamaps.github.io/scripts/datamaps.all.min.js"></script>
+  <div id="container1" style="position: relative; width: 90%; max-height: 600px;"></div>
+ 
+    
+<div id='map_bombs' style="position: relative; width: 1000px; height: 600px;"></div>
+
+<script>
+var bombMap = new Datamap({
+    element: document.getElementById('map_bombs'),
+    scope: 'usa',
+    geographyConfig: {
+        popupOnHover: false,
+        highlightOnHover: false
+    },
+    fills: {
+        'USA': '#717073',
+        'MEM': '#F05133',
+        defaultFill: '#717073'
+    },
+    data: {
+        'MEM': {fillKey: 'MEM'},
+
+    }
+});
+
+     var bombs = [
+{latitude: 42.541024, radius: 4, fillOpacity: 1, borderWidth: .75, name: "HealthAlliance Hospital - Burbank Campus", longitude: -71.761334, fillKey: "MEM"},
+{latitude: 42.334382, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Boston Medical Center", longitude: -71.075763, fillKey: "MEM"},
+{latitude: 42.374317, radius: 4, fillOpacity: 1, borderWidth: .75, name: "The Cambridge Hospital", longitude: -71.104378, fillKey: "MEM"},
+{latitude: 42.426864, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Clinton Hospital", longitude: -71.693542, fillKey: "MEM"},
+{latitude: 42.272294, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UMass Memorial Medical Center", longitude: -71.791882, fillKey: "MEM"},
+{latitude: 42.354329, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Marlborough Hospital", longitude: -71.554158, fillKey: "MEM"},
+{latitude: 41.870867, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Memorial Hospital of Rhode Island", longitude: -71.375142, fillKey: "MEM"},
+{latitude: 41.846419, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Butler Hospital", longitude: -71.386604, fillKey: "MEM"},
+{latitude: 41.810422, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Women & Infants Hospital of Rhode Island", longitude: -71.410901, fillKey: "MEM"},
+{latitude: 41.81208, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Rhode Island Hospital", longitude: -71.407215, fillKey: "MEM"},
+{latitude: 41.705353, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Kent Hospital", longitude: -71.479302, fillKey: "MEM"},
+{latitude: 40.7686, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Coler-Goldwater Specialty Hospital and Nursing Facility (Goldwater Campus)", longitude: -73.9425, fillKey: "MEM"},
+{latitude: 40.880407, radius: 4, fillOpacity: 1, borderWidth: .75, name: "North Central Bronx Hospital", longitude: -73.881462, fillKey: "MEM"},
+{latitude: 40.655427, radius: 4, fillOpacity: 1, borderWidth: .75, name: "SUNY Downstate Medical Center", longitude: -73.945735, fillKey: "MEM"},
+{latitude: 40.58654, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Coney Island Hospital", longitude: -73.96571, fillKey: "MEM"},
+{latitude: 40.655871, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Kings County Hospital Center", longitude: -73.944674, fillKey: "MEM"},
+{latitude: 40.700426, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Woodhull Medical and Mental Health Center", longitude: -73.941704, fillKey: "MEM"},
+{latitude: 42.927374, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Erie County Medical Center", longitude: -78.829337, fillKey: "MEM"},
+{latitude: 40.725437, radius: 4, fillOpacity: 1, borderWidth: .75, name: "NuHealth", longitude: -73.554234, fillKey: "MEM"},
+{latitude: 40.717127, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Queens Hospital Center", longitude: -73.803661, fillKey: "MEM"},
+{latitude: 40.739519, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Bellevue Hospital Center", longitude: -73.976447, fillKey: "MEM"},
+{latitude: 40.857296, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Jacobi Medical Center", longitude: -73.846641, fillKey: "MEM"},
+{latitude: 40.814262, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Harlem Hospital Center", longitude: -73.940447, fillKey: "MEM"},
+{latitude: 40.817586, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Lincoln Medical and Mental Health Center", longitude: -73.924254, fillKey: "MEM"},
+{latitude: 40.784607, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Metropolitan Hospital Center", longitude: -73.943925, fillKey: "MEM"},
+{latitude: 40.744379, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Elmhurst Hospital Center", longitude: -73.885636, fillKey: "MEM"},
+{latitude: 40.9137, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Stony Brook University Hospital", longitude: -73.1166, fillKey: "MEM"},
+{latitude: 43.042546, radius: 4, fillOpacity: 1, borderWidth: .75, name: "SUNY Upstate Medical University", longitude: -76.140471, fillKey: "MEM"},
+{latitude: 41.0825, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Westchester Medical Center", longitude: -73.7827, fillKey: "MEM"},
+{latitude: 40.716493, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Jersey City Medical Center - Barnabas Health", longitude: -74.050169, fillKey: "MEM"},
+{latitude: 40.739963, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University Hospital", longitude: -74.192465, fillKey: "MEM"},
+{latitude: 40.1535, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Einstein Medical Center Montgomery", longitude: -75.3422, fillKey: "MEM"},
+{latitude: 40.037556, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Einstein Medical Center Philadelphia", longitude: -75.144456, fillKey: "MEM"},
+{latitude: 40.004784, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Temple University Hospital", longitude: -75.151992, fillKey: "MEM"},
+{latitude: 39.288158, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Bon Secours Hospital", longitude: -76.648817, fillKey: "MEM"},
+{latitude: 38.917057, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Howard University Hospital", longitude: -77.021718, fillKey: "MEM"},
+{latitude: 38.834324, radius: 4, fillOpacity: 1, borderWidth: .75, name: "United Medical Center", longitude: -76.984731, fillKey: "MEM"},
+{latitude: 38.454841, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UVA Culpeper Hospital", longitude: -78.011551, fillKey: "MEM"},
+{latitude: 37.570339, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Children's Hospital of Richmond", longitude: -77.449382, fillKey: "MEM"},
+{latitude: 37.539863, radius: 4, fillOpacity: 1, borderWidth: .75, name: "MCV Hospitals", longitude: -77.429777, fillKey: "MEM"},
+{latitude: 38.032104, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UVA Medical Center", longitude: -78.498721, fillKey: "MEM"},
+{latitude: 39.6477, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Ruby Memorial Hospital", longitude: -79.9581, fillKey: "MEM"},
+{latitude: 39.2422, radius: 4, fillOpacity: 1, borderWidth: .75, name: "United Hospital Center", longitude: -80.2723, fillKey: "MEM"},
+{latitude: 39.477401, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Berkeley Medical Center", longitude: -77.980318, fillKey: "MEM"},
+{latitude: 39.270262, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Camden Clark Medical Center", longitude: -81.560596, fillKey: "MEM"},
+{latitude: 39.29579, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Jefferson Medical Center", longitude: -77.858353, fillKey: "MEM"},
+{latitude: 35.274442, radius: 4, fillOpacity: 1, borderWidth: .75, name: "CaroMont Health", longitude: -81.143478, fillKey: "MEM"},
+{latitude: 32.785279, radius: 4, fillOpacity: 1, borderWidth: .75, name: "MUSC Medical University of South Carolina", longitude: -79.946678, fillKey: "MEM"},
+{latitude: 34.302314, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Northeast Georgia Medical Center", longitude: -83.817296, fillKey: "MEM"},
+{latitude: 33.752273, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Grady Memorial Hospital", longitude: -84.382263, fillKey: "MEM"},
+{latitude: 33.471082, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Georgia Regents Medical Center", longitude: -81.991247, fillKey: "MEM"},
+{latitude: 33.473028, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University Hospital", longitude: -81.981796, fillKey: "MEM"},
+{latitude: 32.535832, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Columbus Regional Health Northside Medical Center", longitude: -84.954707, fillKey: "MEM"},
+{latitude: 31.5902, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Phoebe Putney Memorial Hospital", longitude: -84.1576, fillKey: "MEM"},
+{latitude: 32.833097, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Navicent Health", longitude: -83.636095, fillKey: "MEM"},
+{latitude: 34.260322, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Floyd Medical Center", longitude: -85.180421, fillKey: "MEM"},
+{latitude: 32.031616, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Memorial University Medical Center", longitude: -81.091716, fillKey: "MEM"},
+{latitude: 30.82472, radius: 4, fillOpacity: 1, borderWidth: .75, name: "John D. Archbold Memorial Hospital", longitude: -83.973204, fillKey: "MEM"},
+{latitude: 26.01382, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Memorial Hospital West", longitude: -80.311834, fillKey: "MEM"},
+{latitude: 26.7257, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Lakeside Medical Center", longitude: -80.6669, fillKey: "MEM"},
+{latitude: 29.200863, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Halifax Health Medical Center", longitude: -81.05533, fillKey: "MEM"},
+{latitude: 26.639546, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Cape Coral Hospital", longitude: -81.941099, fillKey: "MEM"},
+{latitude: 30.347007, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UF Health Jacksonville", longitude: -81.664552, fillKey: "MEM"},
+{latitude: 28.551294, radius: 4, fillOpacity: 1, borderWidth: .75, name: "South Lake Hospital", longitude: -81.723238, fillKey: "MEM"},
+{latitude: 25.991227, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Memorial Hospital Miramar", longitude: -80.375853, fillKey: "MEM"},
+{latitude: 26.268142, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Broward Health Coral Springs", longitude: -80.254304, fillKey: "MEM"},
+{latitude: 26.102294, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Broward Health Medical Center", longitude: -80.14222, fillKey: "MEM"},
+{latitude: 26.207043, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Broward Health Imperial Point", longitude: -80.108172, fillKey: "MEM"},
+{latitude: 26.626429, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Lee Memorial Hospital", longitude: -81.872425, fillKey: "MEM"},
+{latitude: 29.639298, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UF Health Shands Hospital", longitude: -82.343529, fillKey: "MEM"},
+{latitude: 26.018399, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Joe DiMaggio Children's Hospital", longitude: -80.178901, fillKey: "MEM"},
+{latitude: 26.018399, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Memorial Regional Hospital", longitude: -80.178901, fillKey: "MEM"},
+{latitude: 26.543889, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Gulf Coast Medical Center", longitude: -81.850214, fillKey: "MEM"},
+{latitude: 25.790735, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Jackson Memorial Hospital", longitude: -80.214796, fillKey: "MEM"},
+{latitude: 28.526201, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Orlando Regional Medical Center", longitude: -81.37827, fillKey: "MEM"},
+{latitude: 26.030821, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Memorial Hospital Pembroke", longitude: -80.244761, fillKey: "MEM"},
+{latitude: 26.275275, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Broward Health North", longitude: -80.120215, fillKey: "MEM"},
+{latitude: 27.937469, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Tampa General Hospital", longitude: -82.459629, fillKey: "MEM"},
+{latitude: 28.55153, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Health Central Hospital", longitude: -81.525678, fillKey: "MEM"},
+{latitude: 41.461946, radius: 4, fillOpacity: 1, borderWidth: .75, name: "MetroHealth Medical Center-Main Campus", longitude: -81.697045, fillKey: "MEM"},
+{latitude: 39.993504, radius: 4, fillOpacity: 1, borderWidth: .75, name: "The Ohio State University Wexner Medical Center", longitude: -83.016907, fillKey: "MEM"},
+{latitude: 39.78084, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Sidney and Lois Eskenazi Hospital", longitude: -86.176239, fillKey: "MEM"},
+{latitude: 41.786787, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Presence Mercy Medical Center", longitude: -88.328721, fillKey: "MEM"},
+{latitude: 41.869359, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University of Illinois Hospital & Health Sciences System", longitude: -87.67063, fillKey: "MEM"},
+{latitude: 41.873938, radius: 4, fillOpacity: 1, borderWidth: .75, name: "John H. Stroger, Jr. Hospital of Cook County", longitude: -87.674302, fillKey: "MEM"},
+{latitude: 41.899827, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Norwegian American Hospital", longitude: -87.699445, fillKey: "MEM"},
+{latitude: 41.802298, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Provident Hospital of Cook County", longitude: -87.614012, fillKey: "MEM"},
+{latitude: 41.902935, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Presence Saints Mary and Elizabeth Medical Center, Saint Elizabeth Campus", longitude: -87.682893, fillKey: "MEM"},
+{latitude: 41.975198, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Swedish Covenant Hospital", longitude: -87.698732, fillKey: "MEM"},
+{latitude: 41.788766, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University of Chicago Medicine", longitude: -87.604699, fillKey: "MEM"},
+{latitude: 42.541413, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Henry Ford West Bloomfield Hospital", longitude: -83.408206, fillKey: "MEM"},
+{latitude: 42.366275, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Henry Ford Hospital", longitude: -83.084506, fillKey: "MEM"},
+{latitude: 42.446003, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Henry Ford Kingswood Hospital", longitude: -83.164353, fillKey: "MEM"},
+{latitude: 43.021306, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Hurley Medical Center", longitude: -83.705703, fillKey: "MEM"},
+{latitude: 42.612774, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Henry Ford Macomb Hospital-Clinton Township", longitude: -82.96442, fillKey: "MEM"},
+{latitude: 42.210379, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Henry Ford Wyandotte Hospital", longitude: -83.148768, fillKey: "MEM"},
+{latitude: 38.032371, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UK Albert B. Chandler Hospital", longitude: -84.507229, fillKey: "MEM"},
+{latitude: 35.124447, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Erlanger Baroness Campus", longitude: -85.302104, fillKey: "MEM"},
+{latitude: 35.142501, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Regional One Health", longitude: -90.031747, fillKey: "MEM"},
+{latitude: 36.16637, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Nashville General Hospital at Meharry", longitude: -86.805731, fillKey: "MEM"},
+{latitude: 35.6294, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Erlanger Bledsoe Campus", longitude: -85.202, fillKey: "MEM"},
+{latitude: 33.506163, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UAB Hospital", longitude: -86.801752, fillKey: "MEM"},
+{latitude: 32.823855, radius: 4, fillOpacity: 1, borderWidth: .75, name: "East Alabama Medical Center, Lanier", longitude: -85.169673, fillKey: "MEM"},
+{latitude: 30.696251, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University of South Alabama Children's & Women's Hospital", longitude: -88.076998, fillKey: "MEM"},
+{latitude: 30.708072, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University of South Alabama Medical Center", longitude: -88.098853, fillKey: "MEM"},
+{latitude: 32.638258, radius: 4, fillOpacity: 1, borderWidth: .75, name: "East Alabama Medical Center", longitude: -85.404198, fillKey: "MEM"},
+{latitude: 32.32879, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University of Mississippi Medical Center", longitude: -90.175417, fillKey: "MEM"},
+{latitude: 33.763435, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University of Misssissippi Medical Center Grenada", longitude: -89.818191, fillKey: "MEM"},
+{latitude: 33.112172, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Holmes County Hospital and Clinics", longitude: -90.028561, fillKey: "MEM"},
+{latitude: 44.972647, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Hennepin County Medical Center", longitude: -93.262648, fillKey: "MEM"},
+{latitude: 44.955304, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Regions Hospital", longitude: -93.096003, fillKey: "MEM"},
+{latitude: 41.615234, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Broadlawns Medical Center", longitude: -93.64136, fillKey: "MEM"},
+{latitude: 38.937782, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University Hospital", longitude: -92.330641, fillKey: "MEM"},
+{latitude: 39.085, radius: 4, fillOpacity: 1, borderWidth: .75, name: "TMC Hospital Hill", longitude: -94.575612, fillKey: "MEM"},
+{latitude: 38.973439, radius: 4, fillOpacity: 1, borderWidth: .75, name: "TMC Lakewood", longitude: -94.390649, fillKey: "MEM"},
+{latitude: 39.057236, radius: 4, fillOpacity: 1, borderWidth: .75, name: "The University of Kansas Hospital", longitude: -94.611587, fillKey: "MEM"},
+{latitude: 34.751444, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University of Arkansas for Medical Sciences (UAMS)", longitude: -92.320935, fillKey: "MEM"},
+{latitude: 29.956287, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Interim LSU Hospital", longitude: -90.085036, fillKey: "MEM"},
+{latitude: 36.147178, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Oklahoma State University Medical Center", longitude: -95.999862, fillKey: "MEM"},
+{latitude: 32.811886, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Parkland Health & Hospital System", longitude: -96.837753, fillKey: "MEM"},
+{latitude: 31.770624, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University Medical Center of El Paso", longitude: -106.4339, fillKey: "MEM"},
+{latitude: 32.727336, radius: 4, fillOpacity: 1, borderWidth: .75, name: "John Peter Smith Hospital", longitude: -97.326567, fillKey: "MEM"},
+{latitude: 29.311068, radius: 4, fillOpacity: 1, borderWidth: .75, name: "The University of Texas Medical Branch", longitude: -94.775512, fillKey: "MEM"},
+{latitude: 29.685507, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Ben Taub General Hospital", longitude: -95.390977, fillKey: "MEM"},
+{latitude: 29.508896, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University Hospital", longitude: -98.575105, fillKey: "MEM"},
+{latitude: 32.421291, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UT Health Northeast", longitude: -95.215288, fillKey: "MEM"},
+{latitude: 43.7316, radius: 4, fillOpacity: 1, borderWidth: .75, name: "St. Luke's Wood River Medical Center", longitude: -114.4442, fillKey: "MEM"},
+{latitude: 43.612212, radius: 4, fillOpacity: 1, borderWidth: .75, name: "St. Luke's Regional Medical Center", longitude: -116.19201, fillKey: "MEM"},
+{latitude: 42.73013, radius: 4, fillOpacity: 1, borderWidth: .75, name: "St. Luke's Elmore Medical Center", longitude: -114.51866, fillKey: "MEM"},
+{latitude: 42.73013, radius: 4, fillOpacity: 1, borderWidth: .75, name: "St. Luke's Jerome", longitude: -114.51866, fillKey: "MEM"},
+{latitude: 44.908733, radius: 4, fillOpacity: 1, borderWidth: .75, name: "St. Luke's McCall Medical Center", longitude: -116.10992, fillKey: "MEM"},
+{latitude: 42.591783, radius: 4, fillOpacity: 1, borderWidth: .75, name: "St. Luke's Magic Valley Medical Center", longitude: -114.4968, fillKey: "MEM"},
+{latitude: 39.728125, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Denver Health", longitude: -104.99038, fillKey: "MEM"},
+{latitude: 35.08762, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UNM Hospitals", longitude: -106.61799, fillKey: "MEM"},
+{latitude: 33.465581, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Banner-University Medical Center Phoenix", longitude: -112.05903, fillKey: "MEM"},
+{latitude: 33.458408, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Maricopa Medical Center", longitude: -112.02605, fillKey: "MEM"},
+{latitude: 32.177745, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Banner-University Medical Center South", longitude: -110.93076, fillKey: "MEM"},
+{latitude: 32.240718, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Banner-University Medical Center Tucson", longitude: -110.94423, fillKey: "MEM"},
+{latitude: 40.7608, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University of Utah Health Care", longitude: -111.8902, fillKey: "MEM"},
+{latitude: 36.15908, radius: 4, fillOpacity: 1, borderWidth: .75, name: "University Medical Center of Southern Nevada", longitude: -115.16563, fillKey: "MEM"},
+{latitude: 47.441255, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Valley Medical Center", longitude: -122.21403, fillKey: "MEM"},
+{latitude: 47.603595, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Harborview Medical Center", longitude: -122.32318, fillKey: "MEM"},
+{latitude: 47.712415, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Northwest Hospital & Medical Center", longitude: -122.33909, fillKey: "MEM"},
+{latitude: 47.650889, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UW Medical Center", longitude: -122.30862, fillKey: "MEM"},
+{latitude: 37.763169, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Alameda Hospital", longitude: -122.25375, fillKey: "MEM"},
+{latitude: 37.763059, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UCSF Medical Center at Mount Zion", longitude: -122.46, fillKey: "MEM"},
+{latitude: 33.910168, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Riverside University Medical Center", longitude: -117.2003, fillKey: "MEM"},
+{latitude: 35.381101, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Kern Medical Center", longitude: -118.96771, fillKey: "MEM"},
+{latitude: 37.799077, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Highland Hospital", longitude: -122.2311, fillKey: "MEM"},
+{latitude: 37.886265, radius: 4, fillOpacity: 1, borderWidth: .75, name: "San Joaquin General Hospital", longitude: -121.2821, fillKey: "MEM"},
+{latitude: 33.926473, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Rancho Los Amigos National Rehabilitation Center", longitude: -118.15632, fillKey: "MEM"},
+{latitude: 34.059275, radius: 4, fillOpacity: 1, borderWidth: .75, name: "LAC+USC Medical Center", longitude: -118.20979, fillKey: "MEM"},
+{latitude: 34.069001, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Resnick Neuropsychiatric Hospital at UCLA", longitude: -118.44468, fillKey: "MEM"},
+{latitude: 34.068867, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Ronald Reagan UCLA Medical Center", longitude: -118.44515, fillKey: "MEM"},
+{latitude: 38.006366, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Contra Costa Regional Medical Center", longitude: -122.13108, fillKey: "MEM"},
+{latitude: 33.787234, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UC Irvine Medical Center", longitude: -117.89056, fillKey: "MEM"},
+{latitude: 38.554409, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UC Davis Medical Center", longitude: -121.45734, fillKey: "MEM"},
+{latitude: 36.696838, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Natividad Medical Center", longitude: -121.62982, fillKey: "MEM"},
+{latitude: 34.071822, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Arrowhead Regional Medical Center", longitude: -117.35267, fillKey: "MEM"},
+{latitude: 32.753918, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UCSD Medical Center", longitude: -117.16514, fillKey: "MEM"},
+{latitude: 37.747427, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Laguna Honda Hospital and Rehabilitation Center", longitude: -122.45865, fillKey: "MEM"},
+{latitude: 37.756045, radius: 4, fillOpacity: 1, borderWidth: .75, name: "San Francisco General Hospital and Trauma Center", longitude: -122.40641, fillKey: "MEM"},
+{latitude: 37.313647, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Santa Clara Valley Medical Center", longitude: -121.932, fillKey: "MEM"},
+{latitude: 37.530202, radius: 4, fillOpacity: 1, borderWidth: .75, name: "San Mateo Medical Center", longitude: -122.29956, fillKey: "MEM"},
+{latitude: 34.02754, radius: 4, fillOpacity: 1, borderWidth: .75, name: "UCLA Medical Center Santa Monica", longitude: -118.48626, fillKey: "MEM"},
+{latitude: 33.831445, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Harbor-UCLA Medical Center", longitude: -118.29305, fillKey: "MEM"},
+{latitude: 34.324326, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Olive View-UCLA Medical Center", longitude: -118.44797, fillKey: "MEM"},
+{latitude: 34.276367, radius: 4, fillOpacity: 1, borderWidth: .75, name: "Ventura County Medical Center", longitude: -119.25188, fillKey: "MEM"}
+    ];
+//draw bubbles for bombs
+bombMap.bubbles(bombs, {
+    popupTemplate: function (geo, data) { 
+            return ['<div class="hoverinfo">' +  data.name,
+            '</div>'].join('');
+    }
+});
+   
+    </script>  
+</body>
 </html>
